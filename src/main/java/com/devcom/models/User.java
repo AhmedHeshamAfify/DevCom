@@ -20,7 +20,7 @@ public class User {
 	private long id;
 	@Column(name = "NAME")
 	private String name;
-	@Column(name = "EMAIL")
+	@Column(name = "EMAIL", unique= true, nullable = false)
 	private String email;
 	@Column(name = "PASSWORD")
 	private String password;
@@ -32,6 +32,20 @@ public class User {
 	@OneToMany(targetEntity = Post.class, mappedBy = "user")
 	@JsonIgnoreProperties("user")
 	private Set<Post> posts;
+
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public User(long id, String name, String email, String password, UserType type, Integer score) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.type = type;
+		this.score = score;
+	}
 
 	public long getId() {
 		return id;
