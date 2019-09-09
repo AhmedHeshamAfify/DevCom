@@ -57,6 +57,7 @@ public class UserController {
 
 				String generatedusername = jwtTokenUtil.getEmailFromToken(token);
 
+				response.put("message", "success");
 				response.put("token", token);
 				response.put("type", user.getType().toString());
 			} else {

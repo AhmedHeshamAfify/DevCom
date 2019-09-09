@@ -1,4 +1,4 @@
-package com.devcom.configurations;
+package com.devcom;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
