@@ -8,16 +8,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class Question {
+@PrimaryKeyJoinColumn(name="ID")  
+public class Question extends Post{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	private long id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Column(name = "ID")
+//	private long id;
 	@Column(name = "TITLE")
 	private String title;
 	@Column(name = "VIEWS_NUMBER")
@@ -27,9 +29,7 @@ public class Question {
 	@JsonIgnoreProperties({"question"})
 	private Set<Answer> answers;
 
-	public long getId() {
-		return id;
-	}
+
 
 	public String getTitle() {
 		return title;
@@ -42,11 +42,6 @@ public class Question {
 	public Set<Answer> getAnswers() {
 		return answers;
 	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public void setTitle(String title) {
 		this.title = title;
 	}

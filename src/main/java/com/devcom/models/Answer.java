@@ -7,16 +7,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@PrimaryKeyJoinColumn(name="ID")  
 public class Answer extends Post {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	private long id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Column(name = "ID")
+//	private long id;
 	@Column(name = "VERIFIED")
 	private Boolean verified;
 	@Column(name = "TYPE")
@@ -27,9 +29,6 @@ public class Answer extends Post {
 	@JsonIgnoreProperties({ "answers" })
 	private Question question;
 
-	public long getId() {
-		return id;
-	}
 
 	public Boolean getVerified() {
 		return verified;
@@ -41,10 +40,6 @@ public class Answer extends Post {
 
 	public Question getQuestion() {
 		return question;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public void setVerified(Boolean verified) {
