@@ -30,7 +30,7 @@ public class UserDao {
 
 	public User login(String email, String password) {
 		User user = null;
-		Query q = em.createQuery("from User where email:email and password:password");
+		Query q = em.createQuery("from User where email=:email and password=:password");
 		q.setParameter("email", email);
 		q.setParameter("password", password);
 		List<User> users = q.getResultList();
