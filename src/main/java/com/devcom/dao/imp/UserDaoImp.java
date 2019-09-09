@@ -1,32 +1,41 @@
-package com.devcom.dao;
+package com.devcom.dao.imp;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.devcom.dao.UserDao;
 import com.devcom.models.User;
+import com.devcom.repositories.UserRepository;
 
 @Repository
 @Transactional
-public class UserDao {
+public class UserDaoImp implements UserDao {
 
 	@PersistenceContext
 	private EntityManager em;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	public User getUserByEmail(String email) {
 		Query q = em.createQuery("From User where email =:email");
 		q.setParameter("email", email);
 		return (User) q.getSingleResult();
 	}
+	
+	public User saveNewUser(User user) {
+		return userRepository.save(user);
 
-	public void register(User user) {
-		em.persist(user);
 	}
+
 
 	public User login(String email, String password) {
 		User user = null;
@@ -38,5 +47,14 @@ public class UserDao {
 			user = users.get(0);
 		}
 		return user;
+	}
+
+	public UserRepository getUserRepository() {
+		return userRepository;
+	}
+
+
+	public void setUserRepository(UserRepository userRepository) {
+		this.userRepository = userRepository;
 	}
 }

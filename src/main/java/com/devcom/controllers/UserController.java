@@ -1,8 +1,7 @@
 package com.devcom.controllers;
 
-import org.json.JSONObject;
+//import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +31,7 @@ public class UserController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@RequestPart User user) {
-		return userService.register(user);
+		return userService.saveNewUser(user);
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)

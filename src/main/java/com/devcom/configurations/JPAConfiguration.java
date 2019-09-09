@@ -1,4 +1,4 @@
-package com.devcom;
+package com.devcom.configurations;
 
 import java.util.Properties;
 
