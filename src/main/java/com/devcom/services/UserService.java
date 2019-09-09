@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.devcom.dao.UserDao;
+import com.devcom.dao.imp.UserDaoImp;
 import com.devcom.models.User;
 
 @Service
@@ -21,9 +22,9 @@ public class UserService {
 		}
 	}
 
-	public String register(User user) {
+	public String saveNewUser(User user) {
 		try {
-			userDao.register(user);
+			userDao.saveNewUser(user);
 			return "success";
 		} catch (Exception e) {
 			return e.getMessage();

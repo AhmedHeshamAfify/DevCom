@@ -3,7 +3,6 @@ package com.devcom.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -39,8 +38,8 @@ public class UserController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@RequestPart User user) {
-		System.out.println("register");
-		return userService.register(user);
+
+		return userService.saveNewUser(user);
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)

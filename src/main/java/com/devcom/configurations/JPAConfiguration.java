@@ -1,4 +1,4 @@
-package com.devcom;
+package com.devcom.configurations;
 
 import java.util.Properties;
 
@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @ComponentScan({ "com.devcom" })
 @PropertySource(value = { "classpath:application.properties" })
+@EnableJpaRepositories("com.devcom.repositories")
 public class JPAConfiguration {
 	
 	    @Autowired
