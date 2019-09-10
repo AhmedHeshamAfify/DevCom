@@ -1,6 +1,7 @@
 package com.devcom.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,19 @@ public class UserController {
 			response.put("message", e.getLocalizedMessage());
 		}
 		return response;
+	}
+
+	@RequestMapping(value = "/getUserProfile", method = RequestMethod.POST)
+	public User getUserProfile(@RequestParam("token") String token) {
+		User user = null;
+		try {
+			String email = jwtTokenUtil.getEmailFromToken(token);
+			user = userService.getProfileData(email);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return user;
 	}
 
 }

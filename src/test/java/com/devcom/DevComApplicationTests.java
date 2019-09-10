@@ -28,7 +28,7 @@ public class DevComApplicationTests {
 	@Test
 	public void register() {
 		 User user = new User();
-		 user.setEmail("admin@gmail.com");
+		 user.setEmail("admin2@gmail.com");
 		 user.setName("admin");
 		 user.setPassword("admin");
 		 user.setScore(0);

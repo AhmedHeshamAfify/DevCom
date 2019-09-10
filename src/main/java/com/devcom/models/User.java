@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class User implements UserDetails{
+public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +25,7 @@ public class User implements UserDetails{
 	private long id;
 	@Column(name = "NAME")
 	private String name;
-	@Column(name = "EMAIL", unique= true, nullable = false)
+	@Column(name = "EMAIL", unique = true, nullable = false)
 	private String email;
 	@Column(name = "PASSWORD")
 	private String password;
@@ -32,15 +33,18 @@ public class User implements UserDetails{
 	private UserType type;
 	@Column(name = "SCORE")
 	private Integer score;
-	
-	@OneToMany(targetEntity = Post.class, mappedBy = "user")
+
+	@OneToMany(fetch = FetchType.LAZY,targetEntity = Post.class, mappedBy = "user")
 	@JsonIgnoreProperties("user")
 	private Set<Post> posts;
+
+	@OneToMany(targetEntity = Category.class)
+	private Set<Category> categories;
 
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public User(long id, String name, String email, String password, UserType type, Integer score) {
 		super();
 		this.id = id;
@@ -107,6 +111,14 @@ public class User implements UserDetails{
 		this.posts = posts;
 	}
 
+	public Set<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
@@ -141,8 +153,6 @@ public class User implements UserDetails{
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return false;
-	} 
-	
-	
-	
+	}
+
 }

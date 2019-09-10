@@ -3,19 +3,38 @@ package com.devcom.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.devcom.dao.UserDao;
-import com.devcom.dao.imp.UserDaoImp;
 import com.devcom.models.User;
+import com.devcom.repositories.UserRepository;
 
 @Service
 public class UserService {
 
 	@Autowired
-	private UserDao userDao;
+	private UserRepository userRepo;
 
 	public User getUserByEmail(String email) {
 		try {
-			return userDao.getUserByEmail(email);
+			return userRepo.findByEmail(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public User getProfileData(String email) {
+		try {
+			User user = userRepo.findByEmail(email);
+			user.setPosts(null);
+			return user;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public User getUserById(long id) {
+		try {
+			return userRepo.findById(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -24,7 +43,7 @@ public class UserService {
 
 	public String saveNewUser(User user) {
 		try {
-			userDao.saveNewUser(user);
+			userRepo.save(user);
 			return "success";
 		} catch (Exception e) {
 			return e.getMessage();
@@ -33,7 +52,7 @@ public class UserService {
 
 	public User login(String email, String password) {
 		try {
-			return userDao.login(email, password);
+			return userRepo.findByEmailAndPassword(email, password);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
