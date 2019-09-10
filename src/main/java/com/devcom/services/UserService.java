@@ -12,6 +12,12 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepo;
 
+	/**
+	 * get user by email 
+	 * 
+	 * @param email
+	 * @return user
+	 */
 	public User getUserByEmail(String email) {
 		try {
 			return userRepo.findByEmail(email);
@@ -21,6 +27,12 @@ public class UserService {
 		}
 	}
 	
+	/**
+	 * get profile data for user
+	 * 
+	 * @param email
+	 * @return user
+	 */
 	public User getProfileData(String email) {
 		try {
 			User user = userRepo.findByEmail(email);
@@ -32,6 +44,12 @@ public class UserService {
 		}
 	}
 	
+	/**
+	 * get user by id
+	 * 
+	 * @param id
+	 * @return user
+	 */
 	public User getUserById(long id) {
 		try {
 			return userRepo.findById(id);
@@ -41,6 +59,12 @@ public class UserService {
 		}
 	}
 
+	/**
+	 * save new user
+	 * 
+	 * @param user
+	 * @return saved user
+	 */
 	public String saveNewUser(User user) {
 		try {
 			userRepo.save(user);
@@ -50,6 +74,13 @@ public class UserService {
 		}
 	}
 
+	/**
+	 * get user by email and password
+	 * 
+	 * @param email
+	 * @param password
+	 * @return user
+	 */
 	public User login(String email, String password) {
 		try {
 			return userRepo.findByEmailAndPassword(email, password);
