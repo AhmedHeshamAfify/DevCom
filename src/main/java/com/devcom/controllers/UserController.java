@@ -51,9 +51,7 @@ public class UserController {
 
 			if (user != null) {
 				UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
-				/**
-				 * to generate token
-				 */
+				
 				String token = jwtTokenUtil.generateToken(userDetails);
 
 				String generatedusername = jwtTokenUtil.getEmailFromToken(token);

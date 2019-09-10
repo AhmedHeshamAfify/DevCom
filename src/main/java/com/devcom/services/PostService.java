@@ -17,7 +17,7 @@ public class PostService {
 
 	public List<Question> getUserQuestions(long userId) {
 		try {
-			return postRepo.getuserQuestions(userId);
+			return postRepo.getUserQuestions(userId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

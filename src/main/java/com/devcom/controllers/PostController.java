@@ -48,7 +48,7 @@ public class PostController {
 		}
 		return questions;
 	}
-	
+
 	@RequestMapping(value = "/getUserAnswers", method = RequestMethod.POST)
 	public List<Answer> getUserAnswers(@RequestParam("token") String token) {
 		List<Answer> answers = null;
@@ -59,7 +59,6 @@ public class PostController {
 				answers = postService.getUserAnswers(user.getId());
 			}
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 		return answers;

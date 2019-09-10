@@ -17,7 +17,7 @@ public interface PostRepository extends CrudRepository<Post,Long>{
 	Post save(Post post);
 	
 	@Query("from Question where user.id =:userId")
-	List<Question> getuserQuestions(@Param("userId") long userId);
+	List<Question> getUserQuestions(@Param("userId") long userId);
 
 	@Query("from Answer where user.id =:userId")
 	List<Answer> getUserAnswers(@Param("userId") long userId);
