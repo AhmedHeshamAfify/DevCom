@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -110,5 +112,36 @@ public class PostController {
 			e.printStackTrace();
 		}
 		return posts.getContent();
+	}
+	
+	@RequestMapping(value = "/postQuestion", method = RequestMethod.POST)
+	public String postQuestion(@RequestHeader(name = "Authorization") String token,@RequestBody Question q) {
+		String result="";
+		try {
+			String email = jwtTokenUtil.getEmailFromToken(token);
+			User user = userService.getUserByEmail(email);
+			if(user != null)
+				result = postService.postQuestion(q);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/postAnswer", method = RequestMethod.POST)
+	public String postAnswer(@RequestHeader(name = "Authorization") String token, @RequestBody Answer a) {
+		String result = "";
+		try {
+			String email = jwtTokenUtil.getEmailFromToken(token);
+			User user = userService.getUserByEmail(email);
+			if(user != null)
+				postService.postAnswer(a);
+			return "Success";
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
