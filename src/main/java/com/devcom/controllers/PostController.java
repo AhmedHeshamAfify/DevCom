@@ -3,6 +3,7 @@ package com.devcom.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.devcom.jwt.JwtTokenUtil;
 import com.devcom.models.Answer;
+import com.devcom.models.Post;
 import com.devcom.models.Question;
 import com.devcom.models.User;
 import com.devcom.services.JwtUserDetailsServiceImpl;
@@ -62,5 +64,17 @@ public class PostController {
 			e.printStackTrace();
 		}
 		return answers;
+	}
+	
+	@RequestMapping(value = "/getQuestionsWithLimit", method = RequestMethod.POST)
+	public List<Post> getQuestionsWithLimit(@RequestParam("limit") int limit) {
+		Page<Post> posts = null;
+		try {
+			posts = postService.getQuestionWithLimit(limit);
+			posts.getSize();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return posts.getContent();
 	}
 }

@@ -2,6 +2,7 @@
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
  import org.springframework.data.repository.CrudRepository;
  import org.springframework.data.repository.query.Param;
@@ -11,7 +12,7 @@ import com.devcom.models.Post;
 import com.devcom.models.Question;
 
  
-public interface PostRepository extends CrudRepository<Post,Long>{
+public interface PostRepository extends CrudRepository<Post,Long>,JpaRepository<Post, Long>{
 
 	Post findById(long id);
 	Post save(Post post);
