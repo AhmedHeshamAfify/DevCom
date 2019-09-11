@@ -39,7 +39,7 @@ public class PostServiceTests {
 		questions.add(q2);
 		
 		when(postRepo.getUserQuestions(1)).thenReturn(questions);
-		Assert.assertEquals(postRepo.getUserQuestions(1), questions);
+		Assert.assertEquals(postService.getUserQuestions(1), questions);
 	}
 	
 	@Test
@@ -51,7 +51,7 @@ public class PostServiceTests {
 		answers .add(q2);
 		
 		when(postRepo.getUserAnswers(1)).thenReturn(answers );
-		Assert.assertEquals(postRepo.getUserAnswers(1), answers );
+		Assert.assertEquals(postService.getUserAnswers(1), answers );
 	}
 	
 }

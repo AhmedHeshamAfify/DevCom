@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,10 +53,7 @@ public class UserController {
 
 			if (user != null) {
 				UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
-				
 				String token = jwtTokenUtil.generateToken(userDetails);
-
-				String generatedusername = jwtTokenUtil.getEmailFromToken(token);
 
 				response.put("message", "success");
 				response.put("token", token);
@@ -83,4 +81,21 @@ public class UserController {
 		return user;
 	}
 
+	@RequestMapping(value = "/updateUserData", method = RequestMethod.POST)
+	public User updateUserData(@RequestHeader(name = "Authorization") String token, @RequestBody User user) {
+		User response = null;
+		System.out.println(">>> update user Data <<< ");
+		System.out.println("token: "+token);
+		System.out.println("user: "+user.getId());
+		try {
+//			String tokenEmail = jwtTokenUtil.getEmailFromToken(token);
+//			User checkedUser = userService.getUserByEmail(tokenEmail);
+//			if (checkedUser != null) {
+//				response = userService.updateUser(user);
+//			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 }

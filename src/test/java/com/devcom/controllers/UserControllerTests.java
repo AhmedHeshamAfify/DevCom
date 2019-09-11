@@ -78,7 +78,7 @@ public class UserControllerTests {
 		User user = mock(User.class);
 		when(jwtTokenUtil.getEmailFromToken("token")).thenReturn(email);
 		when(userService.getProfileData(email)).thenReturn(user);
-		Assert.assertEquals(userService.getProfileData(email), user);
+		Assert.assertEquals(userController.getUserProfile(token), user);
 	}
 
 	// @Test

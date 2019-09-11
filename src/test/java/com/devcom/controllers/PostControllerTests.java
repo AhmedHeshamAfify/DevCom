@@ -18,6 +18,7 @@ import com.devcom.models.Answer;
 import com.devcom.models.Question;
 import com.devcom.models.User;
 import com.devcom.services.PostService;
+import com.devcom.services.UserService;
 
 
 public class PostControllerTests {
@@ -27,6 +28,9 @@ public class PostControllerTests {
 	
 	@Mock
 	PostService postService;
+	
+	@Mock
+	UserService userService; 
 	
 	@Mock
 	JwtTokenUtil jwtTokenUtil;
@@ -51,10 +55,10 @@ public class PostControllerTests {
 		questions.add(q1);
 		questions.add(q2);
 		questions.add(q3);
+		when(userService.getUserByEmail(email)).thenReturn(user);
+		when(postService.getUserQuestions(user.getId())).thenReturn(questions);
 		
-		when(postService.getUserQuestions(1)).thenReturn(questions);
-		
-		Assert.assertEquals(postService.getUserQuestions(1), questions);
+		Assert.assertEquals(postController.getUserQuestions(token), questions);
 	}	
 	
 	@Test
@@ -73,8 +77,9 @@ public class PostControllerTests {
 		answers.add(a2);
 		answers.add(a3);
 		
-		when(postService.getUserAnswers(1)).thenReturn(answers);
+		when(userService.getUserByEmail(email)).thenReturn(user);
+		when(postService.getUserAnswers(user.getId())).thenReturn(answers);
 		
-		Assert.assertEquals(postService.getUserAnswers(1), answers);
+		Assert.assertEquals(postController.getUserAnswers(token), answers);
 	}	
 }

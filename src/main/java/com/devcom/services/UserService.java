@@ -13,7 +13,7 @@ public class UserService {
 	private UserRepository userRepo;
 
 	/**
-	 * get user by email 
+	 * get user by email
 	 * 
 	 * @param email
 	 * @return user
@@ -26,7 +26,7 @@ public class UserService {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * get profile data for user
 	 * 
@@ -36,14 +36,15 @@ public class UserService {
 	public User getProfileData(String email) {
 		try {
 			User user = userRepo.findByEmail(email);
-			user.setPosts(null);
+			if (user != null)
+				user.setPosts(null);
 			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
+
 	/**
 	 * get user by id
 	 * 
@@ -63,7 +64,7 @@ public class UserService {
 	 * save new user
 	 * 
 	 * @param user
-	 * @return saved user
+	 * @return message
 	 */
 	public String saveNewUser(User user) {
 		try {
@@ -84,6 +85,21 @@ public class UserService {
 	public User login(String email, String password) {
 		try {
 			return userRepo.findByEmailAndPassword(email, password);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * update new user
+	 * 
+	 * @param user
+	 * @return saved user
+	 */
+	public User updateUser(User user) {
+		try {
+			return userRepo.save(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
