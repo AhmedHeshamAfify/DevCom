@@ -8,10 +8,6 @@ import org.springframework.stereotype.Service;
 import com.devcom.models.Answer;
 import com.devcom.models.Question;
 import com.devcom.repositories.PostRepository;
-<<<<<<< HEAD
-=======
-
->>>>>>> e2500279fa87b73d9f5e483318a166afeba3ea07
 @Service
 public class PostService {
 

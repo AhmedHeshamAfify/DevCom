@@ -48,7 +48,6 @@ public class PostController {
 		}
 		return questions;
 	}
-<<<<<<< HEAD
 	
 	@RequestMapping(value = "/votePost", method = RequestMethod.POST)
 	public String votePost(@RequestParam("token") String token, @RequestParam("votes") int votes, @RequestParam("postId") long id) {
@@ -79,8 +78,8 @@ public class PostController {
 			// TODO: handle exception
 		}
 		return result;
-=======
-
+	}
+	
 	@RequestMapping(value = "/getUserAnswers", method = RequestMethod.POST)
 	public List<Answer> getUserAnswers(@RequestParam("token") String token) {
 		List<Answer> answers = null;
@@ -94,6 +93,5 @@ public class PostController {
 			e.printStackTrace();
 		}
 		return answers;
->>>>>>> e2500279fa87b73d9f5e483318a166afeba3ea07
 	}
 }
