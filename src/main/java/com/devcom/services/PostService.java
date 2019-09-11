@@ -12,7 +12,6 @@ import com.devcom.models.Post;
 import com.devcom.models.Question;
 import com.devcom.repositories.PostRepository;
 
-
 @Service
 public class PostService {
 

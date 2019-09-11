@@ -50,17 +50,18 @@ public class PostController {
 		}
 		return questions;
 	}
-	
+
 	@RequestMapping(value = "/votePost", method = RequestMethod.POST)
-	public String votePost(@RequestParam("token") String token, @RequestParam("votes") int votes, @RequestParam("postId") long id) {
+	public String votePost(@RequestParam("token") String token, @RequestParam("votes") int votes,
+			@RequestParam("postId") long id) {
 		String result = "";
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
-			if(user != null) {
+			if (user != null) {
 				result = postService.votePost(votes, id);
 			}
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -74,7 +75,7 @@ public class PostController {
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
-			if(user != null) {
+			if (user != null) {
 				result = postService.verifyAnswer(id);
 			}
 		} catch (Exception e) {
@@ -82,7 +83,7 @@ public class PostController {
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/getUserAnswers", method = RequestMethod.POST)
 	public List<Answer> getUserAnswers(@RequestParam("token") String token) {
 		List<Answer> answers = null;
@@ -96,8 +97,9 @@ public class PostController {
 			e.printStackTrace();
 		}
 		return answers;
+
 	}
-	
+
 	@RequestMapping(value = "/getQuestionsWithLimit", method = RequestMethod.POST)
 	public List<Post> getQuestionsWithLimit(@RequestParam("limit") int limit) {
 		Page<Post> posts = null;
