@@ -54,9 +54,16 @@ public class PostServiceTests {
 		when(postRepo.getUserAnswers(1)).thenReturn(answers );
 		Assert.assertEquals(postService.getUserAnswers(1), answers );
 	}
+	//How to mock a void function.
 	@Test
 	public void votePost() {
 		doNothing().when(postRepo).votePost(1, 1);
 		Assert.assertEquals(postService.votePost(1, 1), "Success");
+	}
+	
+	@Test
+	public void verifyAnswer() {
+		doNothing().when(postRepo).verifyAnswer(1);
+		Assert.assertEquals(postService.verifyAnswer(1), "Success");
 	}
 }
