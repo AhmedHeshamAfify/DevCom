@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devcom.jwt.JwtTokenUtil;
+import com.devcom.models.Answer;
 import com.devcom.models.Question;
 import com.devcom.models.User;
 import com.devcom.services.JwtUserDetailsServiceImpl;
@@ -47,6 +48,7 @@ public class PostController {
 		}
 		return questions;
 	}
+<<<<<<< HEAD
 	
 	@RequestMapping(value = "/votePost", method = RequestMethod.POST)
 	public String votePost(@RequestParam("token") String token, @RequestParam("votes") int votes, @RequestParam("postId") long id) {
@@ -77,5 +79,21 @@ public class PostController {
 			// TODO: handle exception
 		}
 		return result;
+=======
+
+	@RequestMapping(value = "/getUserAnswers", method = RequestMethod.POST)
+	public List<Answer> getUserAnswers(@RequestParam("token") String token) {
+		List<Answer> answers = null;
+		try {
+			String email = jwtTokenUtil.getEmailFromToken(token);
+			User user = userService.getUserByEmail(email);
+			if (user != null) {
+				answers = postService.getUserAnswers(user.getId());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return answers;
+>>>>>>> e2500279fa87b73d9f5e483318a166afeba3ea07
 	}
 }
