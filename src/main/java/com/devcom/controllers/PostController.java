@@ -3,6 +3,7 @@ package com.devcom.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.devcom.jwt.JwtTokenUtil;
 import com.devcom.models.Answer;
+import com.devcom.models.Post;
 import com.devcom.models.Question;
 import com.devcom.models.User;
 import com.devcom.services.JwtUserDetailsServiceImpl;
@@ -48,30 +50,32 @@ public class PostController {
 		}
 		return questions;
 	}
-	
+
 	@RequestMapping(value = "/votePost", method = RequestMethod.POST)
-	public String votePost(@RequestParam("token") String token, @RequestParam("votes") int votes, @RequestParam("postId") long id) {
+	public String votePost(@RequestParam("token") String token, @RequestParam("votes") int votes,
+			@RequestParam("postId") long id) {
 		String result = "";
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
-			if(user != null) {
+			if (user != null) {
 				result = postService.votePost(votes, id);
 			}
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return result;
 	}
+
 	@RequestMapping(value = "/verifyAnswer", method = RequestMethod.POST)
 	public String verifyAnswer(@RequestParam("token") String token, @RequestParam("answerId") long id) {
 		String result = "";
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
-			if(user != null) {
+			if (user != null) {
 				result = postService.verifyAnswer(id);
 			}
 		} catch (Exception e) {
@@ -79,7 +83,7 @@ public class PostController {
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/getUserAnswers", method = RequestMethod.POST)
 	public List<Answer> getUserAnswers(@RequestParam("token") String token) {
 		List<Answer> answers = null;
@@ -93,5 +97,18 @@ public class PostController {
 			e.printStackTrace();
 		}
 		return answers;
+
+	}
+
+	@RequestMapping(value = "/getQuestionsWithLimit", method = RequestMethod.POST)
+	public List<Post> getQuestionsWithLimit(@RequestParam("limit") int limit) {
+		Page<Post> posts = null;
+		try {
+			posts = postService.getQuestionWithLimit(limit);
+			posts.getSize();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return posts.getContent();
 	}
 }

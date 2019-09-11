@@ -29,4 +29,13 @@ build/
 
 ### VS Code ###
 .vscode/
-/bin/
+
+######UI####
+/UI/
+
+
+####git##
+.gitignore
+
+####dev properties######
+application-dev.properties
