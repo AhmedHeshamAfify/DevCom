@@ -47,4 +47,35 @@ public class PostController {
 		}
 		return questions;
 	}
+	
+	@RequestMapping(value = "/votePost", method = RequestMethod.POST)
+	public String votePost(@RequestParam("token") String token, @RequestParam("votes") int votes, @RequestParam("postId") long id) {
+		String result = "";
+		try {
+			String email = jwtTokenUtil.getEmailFromToken(token);
+			User user = userService.getUserByEmail(email);
+			if(user != null) {
+				result = postService.votePost(votes, id);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return result;
+	}
+	@RequestMapping(value = "/verifyAnswer", method = RequestMethod.POST)
+	public String verifyAnswer(@RequestParam("token") String token, @RequestParam("answerId") long id) {
+		String result = "";
+		try {
+			String email = jwtTokenUtil.getEmailFromToken(token);
+			User user = userService.getUserByEmail(email);
+			if(user != null) {
+				result = postService.verifyAnswer(id);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return result;
+	}
 }
