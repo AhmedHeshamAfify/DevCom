@@ -12,6 +12,7 @@ import com.devcom.models.Post;
 import com.devcom.models.Question;
 import com.devcom.repositories.PostRepository;
 
+
 @Service
 public class PostService {
 
@@ -36,7 +37,30 @@ public class PostService {
 		}
 	}
 	
+
 	public Page<Post> getQuestionWithLimit(int limit){
 		return postRepo.findAll(PageRequest.of(0, limit));
+	}
+	
+	public String votePost(int votes, long postId) {
+		try {
+			 postRepo.votePost(votes, postId);
+			 return "Success";
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return e.getMessage();
+		}
+	}
+	
+	public String verifyAnswer(long answerId) {
+		try {
+			postRepo.verifyAnswer(answerId);
+			return "Success";
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return e.getMessage();
+		}
 	}
 }
