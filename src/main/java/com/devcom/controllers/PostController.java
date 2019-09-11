@@ -54,7 +54,7 @@ public class PostController {
 	}
 
 	@RequestMapping(value = "/votePost", method = RequestMethod.POST)
-	public String votePost(@RequestParam("token") String token, @RequestParam("votes") int votes,
+	public String votePost(@RequestHeader(name = "Authorization") String token, @RequestParam("votes") int votes,
 			@RequestParam("postId") long id) {
 		String result = "";
 		try {
@@ -72,7 +72,7 @@ public class PostController {
 	}
 
 	@RequestMapping(value = "/verifyAnswer", method = RequestMethod.POST)
-	public String verifyAnswer(@RequestParam("token") String token, @RequestParam("answerId") long id) {
+	public String verifyAnswer(@RequestHeader(name = "Authorization") String token, @RequestParam("answerId") long id) {
 		String result = "";
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
@@ -87,7 +87,7 @@ public class PostController {
 	}
 
 	@RequestMapping(value = "/getUserAnswers", method = RequestMethod.POST)
-	public List<Answer> getUserAnswers(@RequestParam("token") String token) {
+	public List<Answer> getUserAnswers(@RequestHeader(name = "Authorization") String token) {
 		List<Answer> answers = null;
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
