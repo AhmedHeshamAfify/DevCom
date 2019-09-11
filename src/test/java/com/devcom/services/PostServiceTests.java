@@ -2,6 +2,7 @@ package com.devcom.services;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,5 +54,9 @@ public class PostServiceTests {
 		when(postRepo.getUserAnswers(1)).thenReturn(answers );
 		Assert.assertEquals(postService.getUserAnswers(1), answers );
 	}
-	
+	@Test
+	public void votePost() {
+		doNothing().when(postRepo).votePost(1, 1);
+		Assert.assertEquals(postService.votePost(1, 1), "Success");
+	}
 }
