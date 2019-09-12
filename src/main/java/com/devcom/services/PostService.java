@@ -75,7 +75,7 @@ public class PostService {
 	public String postQuestion(Question q) {
 		try {
 			postRepo.save(q);
-			return "uccess";
+			return "success";
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
