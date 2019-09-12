@@ -34,4 +34,14 @@ public class CategoryService {
 		}
 		return categoriesAndQuestionsNo;
 	}
+	
+	public List<Category> getAllCategories(){
+		try{
+			return categoryRepository.findAll();
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 }

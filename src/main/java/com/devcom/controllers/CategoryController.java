@@ -28,4 +28,11 @@ public class CategoryController {
 		}
 		return null;
 	}
+	
+	@RequestMapping(value="/getAllCategories", method = RequestMethod.GET)
+	public List<Category> getAllCategory(){
+		List<Category> response = categoryService.getAllCategories();
+		System.out.println(" get all categories: "+ response.size());
+		return response;
+	}
 }
