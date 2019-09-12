@@ -88,4 +88,17 @@ public class PostServiceTests {
 		Assert.assertEquals(postService.verifyAnswer(1), "Success");
 	}
 	
+	@Test
+	public void postQuestion() {
+		Question question= mock(Question.class);
+		when(postRepo.save(question)).thenReturn(question);
+		Assert.assertEquals(postService.postQuestion(question), "Success");
+	}
+	
+	@Test
+	public void postAnswer() {
+		Answer answer = mock(Answer.class);
+		when(postRepo.save(answer)).thenReturn(answer);
+		Assert.assertEquals(postService.postAnswer(answer), "Success");
+	}
 }
