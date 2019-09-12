@@ -2,6 +2,7 @@ package com.devcom.services;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,12 @@ public class PostServiceTests {
 		when(postRepo.getUserAnswers(1)).thenReturn(answers );
 		Assert.assertEquals(postService.getUserAnswers(1), answers );
 	}
+	//How to mock a void function.
+	@Test
+	public void votePost() {
+		doNothing().when(postRepo).votePost(1, 1);
+		Assert.assertEquals(postService.votePost(1, 1), "Success");
+	}
 	
 	@Test
 	public void getQuestionByQuestionId() {
@@ -73,5 +80,10 @@ public class PostServiceTests {
 		List<Question> questions = new ArrayList<>();
 		Page<Question> pagedQuestions = new PageImpl(questions);
 		when(questionRepository.findAll(pagedQuestions.getPageable())).thenReturn(pagedQuestions);
+	}
+	
+	public void verifyAnswer() {
+		doNothing().when(postRepo).verifyAnswer(1);
+		Assert.assertEquals(postService.verifyAnswer(1), "Success");
 	}
 }

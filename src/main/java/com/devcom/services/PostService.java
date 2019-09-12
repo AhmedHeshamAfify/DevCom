@@ -71,4 +71,26 @@ public class PostService {
 			return e.getMessage();
 		}
 	}
+	
+	public String postQuestion(Question q) {
+		try {
+			postRepo.save(q);
+			return "Success";
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return e.getMessage();
+		}
+	}
+	
+	public String postAnswer(Answer a) {
+		try {
+			postRepo.save(a);
+			return "Success";
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return e.getMessage();
+		}
+	}
 }

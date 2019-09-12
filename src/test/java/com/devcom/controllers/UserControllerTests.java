@@ -80,6 +80,17 @@ public class UserControllerTests {
 		when(userService.getProfileData(email)).thenReturn(user);
 		Assert.assertEquals(userController.getUserProfile(token), user);
 	}
+	
+	@Test
+	public void updateUserData(){
+		String token = "token";
+		String email = "devcom@devcom.com";
+		User user = mock(User.class);
+		when(jwtTokenUtil.getEmailFromToken("token")).thenReturn(email);
+		when(userService.getUserByEmail(email)).thenReturn(user);
+		when(userService.updateUser(user)).thenReturn(user);
+		Assert.assertEquals(userController.updateUserData(token, user), user);
+	}
 
 	// @Test
 	// public void register() {
