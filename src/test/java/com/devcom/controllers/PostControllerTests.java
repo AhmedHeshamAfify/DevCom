@@ -146,4 +146,19 @@ public class PostControllerTests {
 		when(postService.postQuestion(question)).thenReturn("Success");
 		Assert.assertEquals(postController.postQuestion(token, question), "Success");
 	}
+	
+	@Test 
+	public void postAnswer() {
+		String token = "token";
+		String email = "test@email.com";
+		
+		when(jwtTokenUtil.getEmailFromToken(token)).thenReturn(email);
+		
+		User user = mock(User.class);
+		Answer answer = mock(Answer.class);
+		
+		when(userService.getUserByEmail(email)).thenReturn(user);
+		when(postService.postAnswer(answer)).thenReturn("Success");
+		Assert.assertEquals(postController.postAnswer(token, answer), "Success");
+	}
 }
