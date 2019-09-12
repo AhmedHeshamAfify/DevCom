@@ -104,8 +104,6 @@ public class PostControllerTests {
 		Assert.assertEquals(postController.getQuestionByQuestionId(1), question); 
 	}
 	
-	
-	
 	@Test
 	public void votePost() {
 		String token = "token";
@@ -120,4 +118,32 @@ public class PostControllerTests {
 		Assert.assertEquals(postController.votePost(token, 1, 12), "Success");
 	}
 	
+	@Test
+	public void verifyAnswer() {
+		String token = "token";
+		String email = "test@email.com";
+		
+		when(jwtTokenUtil.getEmailFromToken(token)).thenReturn(email);
+		
+		User user = mock(User.class);
+		
+		when(userService.getUserByEmail(email)).thenReturn(user);
+		when(postService.verifyAnswer(12)).thenReturn("Success");
+		Assert.assertEquals(postController.verifyAnswer(token, 12), "Success");
+	}
+	
+	@Test
+	public void postQuestion() {
+		String token = "token";
+		String email = "test@email.com";
+		
+		when(jwtTokenUtil.getEmailFromToken(token)).thenReturn(email);
+		
+		User user = mock(User.class);
+		Question question = mock(Question.class);
+		
+		when(userService.getUserByEmail(email)).thenReturn(user);
+		when(postService.postQuestion(question)).thenReturn("Success");
+		Assert.assertEquals(postController.postQuestion(token, question), "Success");
+	}
 }
