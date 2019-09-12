@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,10 +13,13 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import com.devcom.models.Answer;
 import com.devcom.models.Question;
 import com.devcom.repositories.PostRepository;
+import com.devcom.repositories.QuestionRepository;
 
 public class PostServiceTests {
 
@@ -24,6 +28,9 @@ public class PostServiceTests {
 	
 	@Mock
 	PostRepository postRepo;
+	
+	@Mock
+	QuestionRepository questionRepository;
 	
 	@Before
 	public void init(){
@@ -38,7 +45,7 @@ public class PostServiceTests {
 		questions.add(q1);
 		questions.add(q2);
 		
-		when(postRepo.getUserQuestions(1)).thenReturn(questions);
+		when(questionRepository.findAllByUserId(1)).thenReturn(questions);
 		Assert.assertEquals(postService.getUserQuestions(1), questions);
 	}
 	
@@ -54,4 +61,17 @@ public class PostServiceTests {
 		Assert.assertEquals(postService.getUserAnswers(1), answers );
 	}
 	
+	@Test
+	public void getQuestionByQuestionId() {
+		Question question = mock(Question.class);
+		when(questionRepository.findById((long) 1)).thenReturn(Optional.of(question));
+		Assert.assertEquals(postService.getQuestionByQuestionId(1).get() , question);
+	}
+	
+	@Test
+	public void getQuestionWithPagination() {
+		List<Question> questions = new ArrayList<>();
+		Page<Question> pagedQuestions = new PageImpl(questions);
+		when(questionRepository.findAll(pagedQuestions.getPageable())).thenReturn(pagedQuestions);
+	}
 }
