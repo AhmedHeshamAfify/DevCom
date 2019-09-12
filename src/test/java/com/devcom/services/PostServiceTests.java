@@ -82,8 +82,10 @@ public class PostServiceTests {
 		when(questionRepository.findAll(pagedQuestions.getPageable())).thenReturn(pagedQuestions);
 	}
 	
+	@Test
 	public void verifyAnswer() {
 		doNothing().when(postRepo).verifyAnswer(1);
 		Assert.assertEquals(postService.verifyAnswer(1), "Success");
 	}
+	
 }
