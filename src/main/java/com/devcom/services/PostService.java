@@ -1,6 +1,7 @@
 package com.devcom.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,19 +9,23 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.devcom.models.Answer;
-import com.devcom.models.Post;
 import com.devcom.models.Question;
 import com.devcom.repositories.PostRepository;
+import com.devcom.repositories.QuestionRepository;
+
 
 @Service
 public class PostService {
 
 	@Autowired
 	private PostRepository postRepo;
+	
+	@Autowired
+	private QuestionRepository questionRepository;
 
 	public List<Question> getUserQuestions(long userId) {
 		try {
-			return postRepo.getUserQuestions(userId);
+			return questionRepository.findAllByUserId(userId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -37,8 +42,12 @@ public class PostService {
 	}
 	
 
-	public Page<Post> getQuestionWithLimit(int limit){
-		return postRepo.findAll(PageRequest.of(0, limit));
+	public Page<Question> getQuestionWithPagination(int limit){
+		return questionRepository.findAll(PageRequest.of(0, limit));
+	}
+	
+	public Optional<Question> getQuestionByQuestionId(long questionId){
+		return questionRepository.findById(questionId);
 	}
 	
 	public String votePost(int votes, long postId) {

@@ -52,7 +52,7 @@ public class PostController {
 		}
 		return questions;
 	}
-
+	
 	@RequestMapping(value = "/votePost", method = RequestMethod.POST)
 	public String votePost(@RequestHeader(name = "Authorization") String token, @RequestParam("votes") int votes,
 			@RequestParam("postId") long id) {
@@ -60,10 +60,10 @@ public class PostController {
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
-			if (user != null) {
+			if(user != null) {
 				result = postService.votePost(votes, id);
 			}
-
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -77,7 +77,7 @@ public class PostController {
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
-			if (user != null) {
+			if(user != null) {
 				result = postService.verifyAnswer(id);
 			}
 		} catch (Exception e) {
@@ -85,7 +85,7 @@ public class PostController {
 		}
 		return result;
 	}
-
+	
 	@RequestMapping(value = "/getUserAnswers", method = RequestMethod.POST)
 	public List<Answer> getUserAnswers(@RequestHeader(name = "Authorization") String token) {
 		List<Answer> answers = null;
@@ -99,19 +99,28 @@ public class PostController {
 			e.printStackTrace();
 		}
 		return answers;
-
 	}
-
-	@RequestMapping(value = "/getQuestionsWithLimit", method = RequestMethod.POST)
-	public List<Post> getQuestionsWithLimit(@RequestParam("limit") int limit) {
-		Page<Post> posts = null;
+	
+	@RequestMapping(value = "/getQuestionWithPagination", method = RequestMethod.POST)
+	public List<Question> getQuestionWithPagination(@RequestParam("limit") int limit) {
+		Page<Question> questions = null;
 		try {
-			posts = postService.getQuestionWithLimit(limit);
-			posts.getSize();
+			questions = postService.getQuestionWithPagination(limit);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return posts.getContent();
+		return questions.getContent();
+	}
+	
+	@RequestMapping(value = "/getQuestionByQuestionId", method = RequestMethod.POST)
+	public Question getQuestionByQuestionId(@RequestParam("questionId") long questionId) {
+		try {
+			return postService.getQuestionByQuestionId(questionId).get();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 	
 	@RequestMapping(value = "/postQuestion", method = RequestMethod.POST)
@@ -120,8 +129,10 @@ public class PostController {
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
-			if(user != null)
+			if(user != null){
+				q.setUser(user);
 				result = postService.postQuestion(q);
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

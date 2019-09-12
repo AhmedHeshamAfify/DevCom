@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,12 +13,15 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import com.devcom.jwt.JwtTokenUtil;
 import com.devcom.models.Answer;
 import com.devcom.models.Question;
 import com.devcom.models.User;
 import com.devcom.services.PostService;
+import com.devcom.services.PostServiceTests;
 import com.devcom.services.UserService;
 
 
@@ -34,6 +38,9 @@ public class PostControllerTests {
 	
 	@Mock
 	JwtTokenUtil jwtTokenUtil;
+	
+	@Mock
+	Question question;
 	
 	@Before
 	public void init() {
@@ -81,7 +88,23 @@ public class PostControllerTests {
 		when(postService.getUserAnswers(user.getId())).thenReturn(answers);
 		
 		Assert.assertEquals(postController.getUserAnswers(token), answers);
-	}	
+	}
+	
+	@Test
+	public void getQuestionWithPagination() {
+		List<Question> questions = new ArrayList<>();
+		Page<Question> pagedQuestions = new PageImpl(questions);
+		when(postService.getQuestionWithPagination(3)).thenReturn(pagedQuestions);
+		Assert.assertEquals(postController.getQuestionWithPagination(3), questions);
+	}
+	
+	@Test
+	public void getQuestionByQuestionId() {
+		when(postService.getQuestionByQuestionId(1)).thenReturn(Optional.of(question));
+		Assert.assertEquals(postController.getQuestionByQuestionId(1), question); 
+	}
+	
+	
 	
 	@Test
 	public void votePost() {

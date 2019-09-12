@@ -30,8 +30,18 @@ public class CategoryService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
 		}
+
 		return categoriesAndQuestionsNo;
 	}
+	
+	public List<Category> getAllCategories(){
+		try{
+			return categoryRepository.findAll();
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 }

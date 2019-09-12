@@ -69,7 +69,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/getUserProfile", method = RequestMethod.POST)
-	public User getUserProfile(@RequestParam("token") String token) {
+	public User getUserProfile(@RequestHeader(name= "Authorization") String token) {
 		User user = null;
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
@@ -88,14 +88,14 @@ public class UserController {
 		System.out.println("token: "+token);
 		System.out.println("user: "+user.getId());
 		try {
-//			String tokenEmail = jwtTokenUtil.getEmailFromToken(token);
-//			User checkedUser = userService.getUserByEmail(tokenEmail);
-//			if (checkedUser != null) {
-//				response = userService.updateUser(user);
-//			}
+			String tokenEmail = jwtTokenUtil.getEmailFromToken(token);
+			User checkedUser = userService.getUserByEmail(tokenEmail);
+			if (checkedUser != null) {
+				response = userService.updateUser(user);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return user;
+		return response;
 	}
 }
