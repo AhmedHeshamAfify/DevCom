@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -23,9 +26,10 @@ public class Question extends Post{
 	@Column(name = "TITLE")
 	private String title;
 	@Column(name = "VIEWS_NUMBER")
-	private Integer viewsNumber;
+	private Integer viewsNumber = 0;
 	
 	@OneToMany(targetEntity = Answer.class, mappedBy = "question")
+	@Cascade({CascadeType.REMOVE})
 	@JsonIgnoreProperties({"question"})
 	private Set<Answer> answers;
 
