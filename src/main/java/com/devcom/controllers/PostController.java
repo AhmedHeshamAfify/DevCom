@@ -146,8 +146,10 @@ public class PostController {
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
-			if(user != null)
+			if(user != null) {
+				a.setUser(user);
 				postService.postAnswer(a);
+			}
 			return "Success";
 		} catch (Exception e) {
 			// TODO: handle exception
