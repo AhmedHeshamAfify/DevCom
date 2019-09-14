@@ -23,7 +23,7 @@ public class Category {
 
 	@ManyToMany
 	@JoinTable(name = "QuestionCategory", joinColumns = { @JoinColumn(name = "CATEGORY_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "QUESTION_ID") })
+	@JoinColumn(name = "QUESTION_ID") })
 	private Set<Question> questions;
 
 	public long getId() {
