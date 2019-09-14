@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.devcom.models.Answer;
 import com.devcom.models.Post;
@@ -46,6 +47,7 @@ public class PostService {
 	}
 
 	public Optional<Question> getQuestionByQuestionId(long questionId) {
+		questionRepository.updateNoOfViews(questionId);
 		return questionRepository.findById(questionId);
 	}
 
@@ -120,4 +122,5 @@ public class PostService {
 			return null;
 		}
 	}
+
 }
