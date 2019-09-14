@@ -36,10 +36,10 @@ public class Question extends Post{
 	@JsonIgnoreProperties({"question"})
 	private Set<Answer> answers;
 
-	@ManyToMany(targetEntity = Category.class)
-	@JsonIgnoreProperties({"questions"})
+	@ManyToMany
 	@JoinTable(name = "Question_Category", joinColumns = { @JoinColumn(name = "QUESTION_ID") }, inverseJoinColumns = {
 			@JoinColumn(name = "CATEGORY_ID") })
+	@JsonIgnoreProperties({"questions"})
 	private Set<Category> categories;
 
 	public Set<Category> getCategories() {
