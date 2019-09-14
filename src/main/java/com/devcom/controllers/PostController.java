@@ -52,7 +52,7 @@ public class PostController {
 		}
 		return questions;
 	}
-	
+
 	@RequestMapping(value = "/votePost", method = RequestMethod.POST)
 	public String votePost(@RequestHeader(name = "Authorization") String token, @RequestParam("votes") int votes,
 			@RequestParam("postId") long id) {
@@ -60,10 +60,10 @@ public class PostController {
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
-			if(user != null) {
+			if (user != null) {
 				result = postService.votePost(votes, id);
 			}
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -77,7 +77,7 @@ public class PostController {
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
-			if(user != null) {
+			if (user != null) {
 				result = postService.verifyAnswer(id);
 			}
 		} catch (Exception e) {
@@ -85,7 +85,7 @@ public class PostController {
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/getUserAnswers", method = RequestMethod.POST)
 	public List<Answer> getUserAnswers(@RequestHeader(name = "Authorization") String token) {
 		List<Answer> answers = null;
@@ -100,7 +100,7 @@ public class PostController {
 		}
 		return answers;
 	}
-	
+
 	@RequestMapping(value = "/getQuestionWithPagination", method = RequestMethod.POST)
 	public List<Question> getQuestionWithPagination(@RequestParam("limit") int limit) {
 		Page<Question> questions = null;
@@ -111,7 +111,7 @@ public class PostController {
 		}
 		return questions.getContent();
 	}
-	
+
 	@RequestMapping(value = "/getQuestionByQuestionId", method = RequestMethod.POST)
 	public Question getQuestionByQuestionId(@RequestParam("questionId") long questionId) {
 		try {
@@ -122,37 +122,67 @@ public class PostController {
 		return null;
 
 	}
-	
+
 	@RequestMapping(value = "/postQuestion", method = RequestMethod.POST)
-	public String postQuestion(@RequestHeader(name = "Authorization") String token,@RequestBody Question q) {
-		String result="";
+	public String postQuestion(@RequestHeader(name = "Authorization") String token, @RequestBody Question q) {
+		String result = "";
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
-			if(user != null){
+			if (user != null) {
 				q.setUser(user);
 				result = postService.postQuestion(q);
+			}else{
+				result = "please login";
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
+			result = e.getMessage();
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/postAnswer", method = RequestMethod.POST)
 	public String postAnswer(@RequestHeader(name = "Authorization") String token, @RequestBody Answer a) {
 		String result = "";
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
-			if(user != null)
-				postService.postAnswer(a);
-			return "Success";
+			if (user != null){
+				a.setUser(user);
+				result = postService.postAnswer(a);
+			}else{
+				result = "please login";
+			}
+
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
+			result = e.getMessage();
 		}
 		return result;
 	}
+
+	@RequestMapping(value = "/removePost", method = RequestMethod.POST)
+	public String removePost(@RequestHeader(name = "Authorization") String token, @RequestParam("postId") long postId) {
+		String response = "";
+		try {
+			String email = jwtTokenUtil.getEmailFromToken(token);
+			User user = userService.getUserByEmail(email);
+			if (user != null) {
+				response = postService.removePost(user.getId(), postId);
+			} else {
+				response = "please login";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			response = e.getMessage();
+		}
+		return response;
+	}
+	
+	@RequestMapping(value = "/getQuestionsForCategories", method = RequestMethod.POST)
+	public List<Question> getQuestionsForCategories( @RequestBody List<Long> categoriesIds) {
+		return postService.getQuestionForCategories(categoriesIds);
+	}
+	
 }

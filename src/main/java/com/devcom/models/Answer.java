@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+import org.hibernate.annotations.Cascade;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -20,7 +22,7 @@ public class Answer extends Post {
 //	@Column(name = "ID")
 //	private long id;
 	@Column(name = "VERIFIED")
-	private Boolean verified;
+	private Boolean verified = false;
 	@Column(name = "TYPE")
 	private AnswerType type = AnswerType.Answer;
 

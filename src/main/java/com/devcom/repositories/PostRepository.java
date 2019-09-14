@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.devcom.models.Answer;
 import com.devcom.models.Post;
+import com.devcom.models.Question;
 
 public interface PostRepository extends CrudRepository<Post, Long>, JpaRepository<Post, Long> {
 
@@ -30,7 +31,8 @@ public interface PostRepository extends CrudRepository<Post, Long>, JpaRepositor
 	void verifyAnswer(@Param("postId") long postId);
 
 
-	@Query("from Answer where user.id =:userId")
+	@Query("from Answer where user.id =:userId order by id desc")
 	List<Answer> getUserAnswers(@Param("userId") long userId);
+	
 
 }

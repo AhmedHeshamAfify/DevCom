@@ -46,4 +46,11 @@ public class CategoryServiceTest {
 		when(category.getText()).thenReturn("Ay 7aga");
 		Assert.assertEquals(categoryService.getAllCategoriesWithQuestionsNo(),categoriesAndQuestionsNo);
 	}
+	@Test
+	public void getAllCategories(){
+		List<Category> categories = new ArrayList<Category>();
+		categories.add(category);
+		when(categoryRepository.findAll()).thenReturn(categories);
+		Assert.assertEquals(categoryService.getAllCategories(),categories);
+	}
 }

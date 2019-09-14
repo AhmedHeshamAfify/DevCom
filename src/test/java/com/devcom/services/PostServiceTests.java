@@ -18,7 +18,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
 import com.devcom.models.Answer;
+import com.devcom.models.Post;
 import com.devcom.models.Question;
+import com.devcom.models.User;
 import com.devcom.repositories.PostRepository;
 import com.devcom.repositories.QuestionRepository;
 
@@ -82,8 +84,37 @@ public class PostServiceTests {
 		when(questionRepository.findAll(pagedQuestions.getPageable())).thenReturn(pagedQuestions);
 	}
 	
+	@Test
 	public void verifyAnswer() {
 		doNothing().when(postRepo).verifyAnswer(1);
 		Assert.assertEquals(postService.verifyAnswer(1), "Success");
+	}
+	
+	@Test
+	public void removePost(){
+		long userId =101;
+		Post p = mock(Post.class);
+		User user = mock(User.class);
+		when(p.getUser()).thenReturn(user);
+		when(postRepo.findById(p.getId())).thenReturn(p);
+		doNothing().when(postRepo).delete(p);
+		Assert.assertEquals(postService.removePost(user.getId(), p.getId()),"success");
+		Assert.assertEquals(postService.removePost(-1, p.getId()),"you don't have permission to delete this post");
+		Assert.assertEquals(postService.removePost(user.getId(), -1),"somthing went wrong, post not exist");
+	}
+	
+
+	@Test
+	public void postQuestion() {
+		Question question= mock(Question.class);
+		when(postRepo.save(question)).thenReturn(question);
+		Assert.assertEquals(postService.postQuestion(question), "success");
+	}
+	
+	@Test
+	public void postAnswer() {
+		Answer answer = mock(Answer.class);
+		when(postRepo.save(answer)).thenReturn(answer);
+		Assert.assertEquals(postService.postAnswer(answer), "success");
 	}
 }

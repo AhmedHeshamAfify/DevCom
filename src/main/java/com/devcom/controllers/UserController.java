@@ -57,7 +57,7 @@ public class UserController {
 
 				response.put("message", "success");
 				response.put("token", token);
-				response.put("type", user.getType().toString());
+//				response.put("type", user.getType().toString());
 			} else {
 				response.put("message", "user name or password is incorrect");
 			}

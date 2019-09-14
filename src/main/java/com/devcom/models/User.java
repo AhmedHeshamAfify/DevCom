@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -32,13 +33,13 @@ public class User implements UserDetails {
 	@Column(name = "TYPE")
 	private UserType type;
 	@Column(name = "SCORE")
-	private Integer score;
+	private Integer score=0;
 
 	@OneToMany(fetch = FetchType.LAZY,targetEntity = Post.class, mappedBy = "user")
 	@JsonIgnoreProperties("user")
 	private Set<Post> posts;
 
-	@OneToMany(targetEntity = Category.class)
+	@ManyToMany(targetEntity = Category.class)
 	private Set<Category> categories;
 
 	public User() {
