@@ -2,9 +2,11 @@ package com.devcom.controllers;
 
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -40,5 +42,12 @@ public class CategoryControllerTest {
 		categoriesAndQuestionsNo.put(category, 1);
 		when(categoryService.getAllCategoriesWithQuestionsNo()).thenReturn(categoriesAndQuestionsNo);
 		Assert.assertEquals(categoryController.getAllCategoriesWithQuestionsNo(),categoriesAndQuestionsNo);
+	}
+	@Test
+	public void getAllCategories() {
+		List<Category> categories = new ArrayList<Category>();
+		categories.add(category);
+		when(categoryService.getAllCategories()).thenReturn(categories);
+		Assert.assertEquals(categoryController.getAllCategory(),categories);
 	}
 }
