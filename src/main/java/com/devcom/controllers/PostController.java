@@ -149,6 +149,7 @@ public class PostController {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
 			if (user != null){
+				a.setUser(user);
 				result = postService.postAnswer(a);
 			}else{
 				result = "please login";
@@ -177,4 +178,10 @@ public class PostController {
 		}
 		return response;
 	}
+	
+	@RequestMapping(value = "/getQuestionsForCategories", method = RequestMethod.POST)
+	public List<Question> getQuestionsForCategories( @RequestBody List<Long> categoriesIds) {
+		return postService.getQuestionForCategories(categoriesIds);
+	}
+	
 }

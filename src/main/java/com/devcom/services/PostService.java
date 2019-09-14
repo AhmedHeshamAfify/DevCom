@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.devcom.models.Answer;
 import com.devcom.models.Post;
 import com.devcom.models.Question;
-import com.devcom.models.User;
 import com.devcom.repositories.PostRepository;
 import com.devcom.repositories.QuestionRepository;
 
@@ -111,5 +110,14 @@ public class PostService {
 			msg = e.getMessage();
 		}
 		return msg;
+	}
+	
+	public List<Question> getQuestionForCategories(List<Long> categoriesIds){
+		try{
+			return questionRepository.getQuestionsForCategories(categoriesIds);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

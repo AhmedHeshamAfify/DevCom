@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Category {
 
@@ -21,9 +23,10 @@ public class Category {
 	@Column(name = "text")
 	private String text;
 
-	@ManyToMany
-	@JoinTable(name = "QuestionCategory", joinColumns = { @JoinColumn(name = "CATEGORY_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "QUESTION_ID") })
+	@ManyToMany(mappedBy="categories")
+//	@JoinTable(name = "Question_Category", joinColumns = { @JoinColumn(name = "CATEGORY_ID") }, inverseJoinColumns = {
+//			@JoinColumn(name = "QUESTION_ID") })
+	@JsonIgnoreProperties({"categories"})
 	private Set<Question> questions;
 
 	public long getId() {

@@ -25,15 +25,19 @@ public abstract class Post {
 	@Column(name ="TEXT")
 	private String text;
 	@Column(name ="DATE")
-	private Date date;
+	private Date date = new Date();
 	@Column(name ="VOTES_NUMBER")
-	private Integer votesNumber;
+	private Integer votesNumber=0;
 	
 	@ManyToOne
 	@JoinColumn(name = "USER_ID")
 	@JsonIgnoreProperties(value = { "posts"})
 	private User user;
 
+	public Post() {
+	
+	}
+	
 	public long getId() {
 		return id;
 	}

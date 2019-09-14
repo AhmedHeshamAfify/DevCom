@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -33,7 +36,19 @@ public class Question extends Post{
 	@JsonIgnoreProperties({"question"})
 	private Set<Answer> answers;
 
+	@ManyToMany(targetEntity = Category.class)
+	@JsonIgnoreProperties({"questions"})
+	@JoinTable(name = "Question_Category", joinColumns = { @JoinColumn(name = "QUESTION_ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "CATEGORY_ID") })
+	private Set<Category> categories;
 
+	public Set<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
+	}
 
 	public String getTitle() {
 		return title;
