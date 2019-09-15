@@ -180,9 +180,20 @@ public class PostController {
 		return response;
 	}
 	
-	@RequestMapping(value = "/getQuestionsForCategories", method = RequestMethod.POST)
-	public List<Question> getQuestionsForCategories( @RequestBody List<Long> categoriesIds) {
-		return postService.getQuestionForCategories(categoriesIds);
+//	@RequestMapping(value = "/getQuestionsForCategories", method = RequestMethod.POST)
+//	public List<Question> getQuestionsForCategories( @RequestBody List<Long> categoriesIds) {
+//		return postService.getQuestionForCategories(categoriesIds);
+//	}
+//	
+//	@RequestMapping(value = "/getQuestionsForCategoriesToSearch", method = RequestMethod.POST)
+//	public List<Question> getQuestionsForCategoriesToSearch( @RequestBody List<Long> categoriesIds) {
+//		return postService.getQuestionsForCategoriesToSearch(categoriesIds);
+//	}
+	
+	@RequestMapping(value = "/searchByKeyword", method = RequestMethod.POST)
+	public List<Question> TestSearch(@RequestBody String keyword) {
+		return postService.searchByKeyword(keyword);
 	}
+	
 	
 }

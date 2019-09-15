@@ -13,6 +13,7 @@ import com.devcom.models.Post;
 import com.devcom.models.Question;
 import com.devcom.repositories.PostRepository;
 import com.devcom.repositories.QuestionRepository;
+import com.devcom.repositories.FullTextSearch;
 
 @Service
 public class PostService {
@@ -22,6 +23,9 @@ public class PostService {
 
 	@Autowired
 	private QuestionRepository questionRepository;
+	
+	@Autowired
+	private FullTextSearch fullTextSearch;
 
 	public List<Question> getUserQuestions(long userId) {
 		try {
@@ -112,12 +116,31 @@ public class PostService {
 		return msg;
 	}
 	
-	public List<Question> getQuestionForCategories(List<Long> categoriesIds){
+//	public List<Question> getQuestionForCategories(List<Long> categoriesIds){
+//		try{
+//			return questionRepository.getQuestionsForCategories(categoriesIds);
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}
+//	
+//	public List<Question> getQuestionsForCategoriesToSearch(List<Long> categoriesIds){
+//		try{
+//			return questionRepository.getQuestionsForCategoriesToSearch(categoriesIds);
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}
+	
+	public List<Question> searchByKeyword(String keyword){
 		try{
-			return questionRepository.getQuestionsForCategories(categoriesIds);
+			return fullTextSearch.searchByKeyword(keyword);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
+	
 }

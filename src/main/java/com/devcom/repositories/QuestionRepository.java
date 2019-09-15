@@ -14,7 +14,11 @@ public interface QuestionRepository extends CrudRepository<Question, Long>, JpaR
 	
 	List<Question> findAllByUserId(long userId);
 	
-	@Query("from Question q ,Category c where c.id in :categoryIds order by q.date desc")
-	List<Question> getQuestionsForCategories(@Param("categoryIds") List<Long> categoriesIds);
+//	@Query("from Question q ,Category c where c.id in :categoryIds order by q.date desc")
+//	List<Question> getQuestionsForCategories(@Param("categoryIds") List<Long> categoriesIds);
+//
+//	@Query("select new com.devcom.models.Question(q.id,q.text) from Question q ,Category c where c.id in :categoryIds order by q.date desc")
+//	List<Question> getQuestionsForCategoriesToSearch(@Param("categoryIds") List<Long> categoriesIds);
 
+	
 }

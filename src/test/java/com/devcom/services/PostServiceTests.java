@@ -21,6 +21,7 @@ import com.devcom.models.Answer;
 import com.devcom.models.Post;
 import com.devcom.models.Question;
 import com.devcom.models.User;
+import com.devcom.repositories.FullTextSearch;
 import com.devcom.repositories.PostRepository;
 import com.devcom.repositories.QuestionRepository;
 
@@ -34,6 +35,9 @@ public class PostServiceTests {
 	
 	@Mock
 	QuestionRepository questionRepository;
+	
+	@Mock
+	 FullTextSearch fullTextSearch;
 	
 	@Before
 	public void init(){
@@ -63,7 +67,7 @@ public class PostServiceTests {
 		when(postRepo.getUserAnswers(1)).thenReturn(answers );
 		Assert.assertEquals(postService.getUserAnswers(1), answers );
 	}
-	//How to mock a void function.
+	
 	@Test
 	public void votePost() {
 		doNothing().when(postRepo).votePost(1, 1);
@@ -116,5 +120,19 @@ public class PostServiceTests {
 		Answer answer = mock(Answer.class);
 		when(postRepo.save(answer)).thenReturn(answer);
 		Assert.assertEquals(postService.postAnswer(answer), "success");
+	}
+	
+	@Test
+	public void searchByKeyword(){
+		String keyword = "how to fix";
+		Question q1 = mock(Question.class);
+		Question q2 = mock(Question.class);
+		Question q3 = mock(Question.class);
+		List<Question> questions = new ArrayList<>();
+		questions.add(q1);
+		questions.add(q2);
+		questions.add(q3);
+		when(fullTextSearch.searchByKeyword(keyword)).thenReturn(questions);
+		Assert.assertEquals(postService.searchByKeyword(keyword), questions);
 	}
 }

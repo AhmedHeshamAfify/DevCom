@@ -12,8 +12,12 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@Indexed
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)  
 public abstract class Post {
@@ -22,6 +26,7 @@ public abstract class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name ="ID")
 	private long id;
+	@Field
 	@Column(name ="TEXT")
 	private String text;
 	@Column(name ="DATE")
@@ -38,6 +43,16 @@ public abstract class Post {
 	
 	}
 	
+	
+	
+	public Post(long id, String text) {
+		super();
+		this.id = id;
+		this.text = text;
+	}
+
+
+
 	public long getId() {
 		return id;
 	}
