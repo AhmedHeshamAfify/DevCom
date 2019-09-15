@@ -19,8 +19,8 @@ public class CategoryController {
 	@Autowired
 	CategoryService  categoryService;
 
-	@RequestMapping(value = "/getAllCategoriesWithQuestionsNo", method = RequestMethod.POST)
-	public Map<Category,Integer> getAllCategoriesWithQuestionsNo() {
+	@RequestMapping(value = "/getAllCategoriesWithQuestionsNo", method = RequestMethod.GET)
+	public Map<String,Integer> getAllCategoriesWithQuestionsNo() {
 		try {
 			return categoryService.getAllCategoriesWithQuestionsNo();
 		} catch (Exception e) {

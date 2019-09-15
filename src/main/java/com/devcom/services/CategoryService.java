@@ -19,13 +19,13 @@ public class CategoryService {
 	@Autowired
 	CategoryRepository categoryRepository;
 	
-	public Map<Category,Integer> getAllCategoriesWithQuestionsNo(){
-		Map<Category,Integer> categoriesAndQuestionsNo = new HashMap<Category, Integer>();
+	public Map<String,Integer> getAllCategoriesWithQuestionsNo(){
+		Map<String,Integer> categoriesAndQuestionsNo = new HashMap<String,Integer>();
 		try {
 			List<Category> categories = categoryRepository.findAll();
 			for (Category category : categories) {
 				if (category != null && category.getQuestions() != null) {
-					categoriesAndQuestionsNo.put(category,category.getQuestions().size());
+					categoriesAndQuestionsNo.put(category.getText(),category.getQuestions().size());
 				}
 			}
 		} catch (Exception e) {

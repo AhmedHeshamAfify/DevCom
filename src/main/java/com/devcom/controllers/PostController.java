@@ -17,6 +17,7 @@ import com.devcom.models.Answer;
 import com.devcom.models.Post;
 import com.devcom.models.Question;
 import com.devcom.models.User;
+import com.devcom.repositories.QuestionRepository;
 import com.devcom.services.JwtUserDetailsServiceImpl;
 import com.devcom.services.PostService;
 import com.devcom.services.UserService;

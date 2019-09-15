@@ -23,9 +23,7 @@ public class Category {
 	@Column(name = "text")
 	private String text;
 
-	@ManyToMany(mappedBy="categories")
-//	@JoinTable(name = "Question_Category", joinColumns = { @JoinColumn(name = "CATEGORY_ID") }, inverseJoinColumns = {
-//			@JoinColumn(name = "QUESTION_ID") })
+	@ManyToMany(mappedBy = "categories")
 	@JsonIgnoreProperties({"categories"})
 	private Set<Question> questions;
 

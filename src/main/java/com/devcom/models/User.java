@@ -40,6 +40,7 @@ public class User implements UserDetails {
 	private Set<Post> posts;
 
 	@ManyToMany(targetEntity = Category.class)
+	@JsonIgnoreProperties("questions")
 	private Set<Category> categories;
 
 	public User() {

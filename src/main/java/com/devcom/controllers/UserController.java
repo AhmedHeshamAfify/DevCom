@@ -82,7 +82,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/updateUserData", method = RequestMethod.POST)
-	public User updateUserData(@RequestHeader(name = "Authorization") String token, @RequestBody User user) {
+	public User updateUserData(@RequestBody User user , @RequestHeader(name = "Authorization") String token) {
 		User response = null;
 		System.out.println(">>> update user Data <<< ");
 		System.out.println("token: "+token);

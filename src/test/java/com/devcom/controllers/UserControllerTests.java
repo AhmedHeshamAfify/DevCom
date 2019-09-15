@@ -89,7 +89,7 @@ public class UserControllerTests {
 		when(jwtTokenUtil.getEmailFromToken("token")).thenReturn(email);
 		when(userService.getUserByEmail(email)).thenReturn(user);
 		when(userService.updateUser(user)).thenReturn(user);
-		Assert.assertEquals(userController.updateUserData(token, user), user);
+		Assert.assertEquals(userController.updateUserData(user,token), user);
 	}
 
 	// @Test

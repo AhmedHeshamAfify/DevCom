@@ -82,6 +82,11 @@ public class PostServiceTests {
 	}
 	
 	@Test
+	public void updateNoOfViews() {
+		doNothing().when(questionRepository).updateNoOfViews(1L);
+	}
+	
+	@Test
 	public void getQuestionWithPagination() {
 		List<Question> questions = new ArrayList<>();
 		Page<Question> pagedQuestions = new PageImpl(questions);
