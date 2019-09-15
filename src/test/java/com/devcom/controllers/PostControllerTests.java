@@ -169,7 +169,7 @@ public class PostControllerTests {
 	public void removePost() {
 		String token = "token";
 		String email = "email@mail.com";
-		long postId =101;
+		long postId = 101;
 		User user = mock(User.class);
 		when(jwtTokenUtil.getEmailFromToken(token)).thenReturn(email);
 		when(userService.getUserByEmail(email)).thenReturn(user);
@@ -179,9 +179,9 @@ public class PostControllerTests {
 		Assert.assertEquals(postController.removePost(token, postId), "please login");
 
 	}
-	
+
 	@Test
-	public void searchByKeyword(){
+	public void searchByKeyword() {
 		String keyword = "how to java";
 		Question q1 = mock(Question.class);
 		Question q2 = mock(Question.class);
@@ -192,6 +192,21 @@ public class PostControllerTests {
 		Assert.assertEquals(postController.searchByKeyword(keyword), questions);
 		when(postService.searchByKeyword(keyword)).thenReturn(null);
 		Assert.assertEquals(postController.searchByKeyword(keyword), null);
-				
+
+	}
+
+	@Test
+	public void searchByCategory() {
+		long categoryId = 1;
+		int limit = 10;
+		Question q1 = mock(Question.class);
+		Question q2 = mock(Question.class);
+		List<Question> questions = new ArrayList<>();
+		questions.add(q1);
+		questions.add(q2);
+		when(postService.searchByCategory(categoryId, limit)).thenReturn(questions);
+		Assert.assertEquals(postController.searchByCategory(categoryId, limit), questions);
+		when(postService.searchByCategory(categoryId, limit)).thenReturn(null);
+		Assert.assertEquals(postController.searchByCategory(categoryId, limit), null);
 	}
 }

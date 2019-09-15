@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.devcom.models.Answer;
 import com.devcom.models.Post;
@@ -24,7 +23,7 @@ public class PostService {
 
 	@Autowired
 	private QuestionRepository questionRepository;
-	
+
 	@Autowired
 	private FullTextSearch fullTextSearch;
 
@@ -47,12 +46,31 @@ public class PostService {
 	}
 
 	public Page<Question> getQuestionWithPagination(int limit) {
-		return questionRepository.findAll(PageRequest.of(0, limit));
+		try {
+			return questionRepository.findAll(PageRequest.of(0, limit));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public List<Question> searchByCategory(long categoryId, int limit) {
+		try {
+			return questionRepository.getQuestionsForCategory(categoryId, PageRequest.of(0, limit));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public Optional<Question> getQuestionByQuestionId(long questionId) {
-		questionRepository.updateNoOfViews(questionId);
-		return questionRepository.findById(questionId);
+		try {
+			questionRepository.updateNoOfViews(questionId);
+			return questionRepository.findById(questionId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public String votePost(int votes, long postId) {
@@ -103,9 +121,9 @@ public class PostService {
 		String msg = "";
 		try {
 			Post p = postRepo.findById(postId);
-			if(p == null){
+			if (p == null) {
 				msg = "somthing went wrong, post not exist";
-			}else if (p.getUser().getId() == userId) {
+			} else if (p.getUser().getId() == userId) {
 				postRepo.delete(p);
 				msg = "success";
 			} else {
@@ -117,29 +135,31 @@ public class PostService {
 		}
 		return msg;
 	}
-	
-//	public List<Question> getQuestionForCategories(List<Long> categoriesIds){
-//		try{
-//			return questionRepository.getQuestionsForCategories(categoriesIds);
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//			return null;
-//		}
-//	}
-//	
-//	public List<Question> getQuestionsForCategoriesToSearch(List<Long> categoriesIds){
-//		try{
-//			return questionRepository.getQuestionsForCategoriesToSearch(categoriesIds);
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//			return null;
-//		}
-//	}
-	
-	public List<Question> searchByKeyword(String keyword){
-		try{
+
+	// public List<Question> getQuestionForCategories(List<Long> categoriesIds){
+	// try{
+	// return questionRepository.getQuestionsForCategories(categoriesIds);
+	// }catch (Exception e) {
+	// e.printStackTrace();
+	// return null;
+	// }
+	// }
+	//
+	// public List<Question> getQuestionsForCategoriesToSearch(List<Long>
+	// categoriesIds){
+	// try{
+	// return
+	// questionRepository.getQuestionsForCategoriesToSearch(categoriesIds);
+	// }catch (Exception e) {
+	// e.printStackTrace();
+	// return null;
+	// }
+	// }
+
+	public List<Question> searchByKeyword(String keyword) {
+		try {
 			return fullTextSearch.searchByKeyword(keyword);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
