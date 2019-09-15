@@ -179,4 +179,19 @@ public class PostControllerTests {
 		Assert.assertEquals(postController.removePost(token, postId), "please login");
 
 	}
+	
+	@Test
+	public void searchByKeyword(){
+		String keyword = "how to java";
+		Question q1 = mock(Question.class);
+		Question q2 = mock(Question.class);
+		List<Question> questions = new ArrayList<>();
+		questions.add(q1);
+		questions.add(q2);
+		when(postService.searchByKeyword(keyword)).thenReturn(questions);
+		Assert.assertEquals(postController.searchByKeyword(keyword), questions);
+		when(postService.searchByKeyword(keyword)).thenReturn(null);
+		Assert.assertEquals(postController.searchByKeyword(keyword), null);
+				
+	}
 }

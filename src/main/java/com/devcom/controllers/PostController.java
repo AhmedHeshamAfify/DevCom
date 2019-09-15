@@ -192,7 +192,7 @@ public class PostController {
 //	}
 	
 	@RequestMapping(value = "/searchByKeyword", method = RequestMethod.POST)
-	public List<Question> TestSearch(@RequestBody String keyword) {
+	public List<Question> searchByKeyword(@RequestBody String keyword) {
 		return postService.searchByKeyword(keyword);
 	}
 	
