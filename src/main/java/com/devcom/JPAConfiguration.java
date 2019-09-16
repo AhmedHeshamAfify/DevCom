@@ -77,7 +77,7 @@ public class JPAConfiguration {
 		      properties.setProperty("hibernate.search.default.directory_provider", "filesystem");
 //		      properties.setProperty("hibernate.search.generate_statistics", "true");
 //		      properties.setProperty("hibernate.search.lucene_version", "LUCENE_CURRENT");
-		      properties.setProperty("hibernate.search.default.indexBase", "/x-app/usr/lucene/indexes");
+		      properties.setProperty("hibernate.search.default.indexBase", "./x-app/usr/lucene/indexes");
 		      properties.setProperty("hibernate.search.Rules.directory_provider", "local-heap");
 		      properties.setProperty("hibernate.search.Actions.directory_provider", "/com.acme.hibernate.CustomDirectoryProvider");
 		      properties.setProperty("hibernate.search.indexing_strategy", "manual");
