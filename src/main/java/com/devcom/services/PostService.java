@@ -110,14 +110,13 @@ public class PostService {
 		}
 	}
 
-	public String postAnswer(Answer a) {
+	public Post postAnswer(Answer a) {
 		try {
-			postRepo.save(a);
-			return "success";
+			return postRepo.save(a);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return e.getMessage();
+			return null;
 		}
 	}
 
