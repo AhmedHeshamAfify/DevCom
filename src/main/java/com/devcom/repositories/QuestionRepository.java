@@ -24,7 +24,7 @@ public interface QuestionRepository extends CrudRepository<Question, Long>, JpaR
 //	@Query("select new com.devcom.models.Question(q.id,q.text) from Question q ,Category c where c.id in :categoryIds order by q.date desc")
 //	List<Question> getQuestionsForCategoriesToSearch(@Param("categoryIds") List<Long> categoriesIds);
 
-	@Query("from Question q ,Category c where c.id  = :categoryId order by q.date desc")
+	@Query("Select q from Question q inner join q.categories c where c.id  = :categoryId order by q.date desc")
 	List<Question> getQuestionsForCategory(@Param("categoryId") Long categoriesIds,Pageable pageable);
 	
 	@Query("UPDATE Question q SET q.viewsNumber = viewsNumber + 1 WHERE q.id = :questionId")

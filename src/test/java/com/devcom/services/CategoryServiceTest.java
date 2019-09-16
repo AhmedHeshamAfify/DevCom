@@ -35,18 +35,6 @@ public class CategoryServiceTest {
 	}
 	
 	@Test
-	public void getAllCategoriesWithQuestionsNo() {
-		List<Category> categories = new ArrayList<Category>();
-		categories.add(category);
-		Map<String, Integer> categoriesAndQuestionsNo = new HashMap<String, Integer>();
-		
-		categoriesAndQuestionsNo.put("Ay 7aga", 0);
-		
-		when(categoryRepository.findAll()).thenReturn(categories);
-		when(category.getText()).thenReturn("Ay 7aga");
-		Assert.assertEquals(categoryService.getAllCategoriesWithQuestionsNo(),categoriesAndQuestionsNo);
-	}
-	@Test
 	public void getAllCategories(){
 		List<Category> categories = new ArrayList<Category>();
 		categories.add(category);

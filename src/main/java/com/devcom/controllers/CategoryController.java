@@ -19,15 +19,6 @@ public class CategoryController {
 	@Autowired
 	CategoryService  categoryService;
 
-	@RequestMapping(value = "/getAllCategoriesWithQuestionsNo", method = RequestMethod.GET)
-	public Map<String,Integer> getAllCategoriesWithQuestionsNo() {
-		try {
-			return categoryService.getAllCategoriesWithQuestionsNo();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 	
 	@RequestMapping(value="/getAllCategories", method = RequestMethod.GET)
 	public List<Category> getAllCategory(){
