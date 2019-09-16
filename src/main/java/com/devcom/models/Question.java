@@ -4,9 +4,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -15,9 +12,13 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.TermVector;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@Indexed
 @Entity
 @PrimaryKeyJoinColumn(name="ID")  
 public class Question extends Post{
@@ -26,6 +27,7 @@ public class Question extends Post{
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	@Column(name = "ID")
 //	private long id;
+	@Field(termVector = TermVector.YES)
 	@Column(name = "TITLE")
 	private String title;
 	@Column(name = "VIEWS_NUMBER")
@@ -42,6 +44,15 @@ public class Question extends Post{
 	@JsonIgnoreProperties({"questions"})
 	private Set<Category> categories;
 
+	public Question(long id, String text) {
+	super(id, text);
+	}
+	
+	public Question() {
+		
+	}
+	
+	
 	public Set<Category> getCategories() {
 		return categories;
 	}

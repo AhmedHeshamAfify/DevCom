@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageImpl;
 
 import com.devcom.jwt.JwtTokenUtil;
 import com.devcom.models.Answer;
+import com.devcom.models.Post;
 import com.devcom.models.Question;
 import com.devcom.models.User;
 import com.devcom.services.PostService;
@@ -158,18 +159,19 @@ public class PostControllerTests {
 		User user = mock(User.class);
 		Answer answer = mock(Answer.class);
 
+		Post post = mock(Post.class);
 		when(userService.getUserByEmail(email)).thenReturn(user);
-		when(postService.postAnswer(answer)).thenReturn("success");
-		Assert.assertEquals(postController.postAnswer(token, answer), "success");
+		when(postService.postAnswer(answer)).thenReturn(post);
+		Assert.assertEquals(postController.postAnswer(token, answer),post);
 		when(userService.getUserByEmail(email)).thenReturn(null);
-		Assert.assertEquals(postController.postAnswer(token, answer), "please login");
+		Assert.assertEquals(postController.postAnswer(token, answer),null);
 	}
 
 	@Test
 	public void removePost() {
 		String token = "token";
 		String email = "email@mail.com";
-		long postId =101;
+		long postId = 101;
 		User user = mock(User.class);
 		when(jwtTokenUtil.getEmailFromToken(token)).thenReturn(email);
 		when(userService.getUserByEmail(email)).thenReturn(user);
@@ -178,5 +180,35 @@ public class PostControllerTests {
 		when(userService.getUserByEmail(email)).thenReturn(null);
 		Assert.assertEquals(postController.removePost(token, postId), "please login");
 
+	}
+
+	@Test
+	public void searchByKeyword() {
+		String keyword = "how to java";
+		Question q1 = mock(Question.class);
+		Question q2 = mock(Question.class);
+		List<Question> questions = new ArrayList<>();
+		questions.add(q1);
+		questions.add(q2);
+		when(postService.searchByKeyword(keyword)).thenReturn(questions);
+		Assert.assertEquals(postController.searchByKeyword(keyword), questions);
+		when(postService.searchByKeyword(keyword)).thenReturn(null);
+		Assert.assertEquals(postController.searchByKeyword(keyword), null);
+
+	}
+
+	@Test
+	public void searchByCategory() {
+		long categoryId = 1;
+		int limit = 10;
+		Question q1 = mock(Question.class);
+		Question q2 = mock(Question.class);
+		List<Question> questions = new ArrayList<>();
+		questions.add(q1);
+		questions.add(q2);
+		when(postService.searchByCategory(categoryId, limit)).thenReturn(questions);
+		Assert.assertEquals(postController.searchByCategory(categoryId, limit), questions);
+		when(postService.searchByCategory(categoryId, limit)).thenReturn(null);
+		Assert.assertEquals(postController.searchByCategory(categoryId, limit), null);
 	}
 }

@@ -72,6 +72,19 @@ public class JPAConfiguration {
 		      Properties properties = new Properties();
 		      properties.setProperty("hibernate.hbm2ddl.auto", environment.getRequiredProperty("spring.jpa.hibernate.ddl-auto"));
 		      properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+		      
+//		      properties.setProperty("hibernate.search.jmx_enabled", "true");
+		      properties.setProperty("hibernate.search.default.directory_provider", "filesystem");
+//		      properties.setProperty("hibernate.search.generate_statistics", "true");
+//		      properties.setProperty("hibernate.search.lucene_version", "LUCENE_CURRENT");
+		      properties.setProperty("hibernate.search.default.indexBase", "./x-app/usr/lucene/indexes");
+		      properties.setProperty("hibernate.search.Rules.directory_provider", "local-heap");
+		      properties.setProperty("hibernate.search.Actions.directory_provider", "/com.acme.hibernate.CustomDirectoryProvider");
+		      properties.setProperty("hibernate.search.indexing_strategy", "manual");
+		      properties.setProperty("hibernate.search.default.indexmanager", "near-real-time");
+//		      <property name="default.indexmanager">near-real-time</property>
+//		      hibernate.search.indexing_strategy = manual
+
 		      return properties;
 		   }
 }

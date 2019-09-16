@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import com.devcom.models.Answer;
 import com.devcom.models.Post;
 import com.devcom.models.Question;
 import com.devcom.models.User;
+import com.devcom.repositories.QuestionRepository;
 import com.devcom.services.JwtUserDetailsServiceImpl;
 import com.devcom.services.PostService;
 import com.devcom.services.UserService;
@@ -132,7 +134,7 @@ public class PostController {
 			if (user != null) {
 				q.setUser(user);
 				result = postService.postQuestion(q);
-			}else{
+			} else {
 				result = "please login";
 			}
 		} catch (Exception e) {
@@ -143,21 +145,18 @@ public class PostController {
 	}
 
 	@RequestMapping(value = "/postAnswer", method = RequestMethod.POST)
-	public String postAnswer(@RequestHeader(name = "Authorization") String token, @RequestBody Answer a) {
-		String result = "";
+	public Post postAnswer(@RequestHeader(name = "Authorization") String token, @RequestBody Answer a) {
+		Post result = null;
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
-			if (user != null){
+			if (user != null) {
 				a.setUser(user);
 				result = postService.postAnswer(a);
-			}else{
-				result = "please login";
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = e.getMessage();
 		}
 		return result;
 	}
@@ -179,10 +178,30 @@ public class PostController {
 		}
 		return response;
 	}
-	
-	@RequestMapping(value = "/getQuestionsForCategories", method = RequestMethod.POST)
-	public List<Question> getQuestionsForCategories( @RequestBody List<Long> categoriesIds) {
-		return postService.getQuestionForCategories(categoriesIds);
+
+	@RequestMapping(value = "/searchByKeyword", method = RequestMethod.POST)
+	public List<Question> searchByKeyword(@RequestParam("keyWord") String keyword) {
+		return postService.searchByKeyword(keyword);
 	}
-	
+
+	@RequestMapping(value = "/searchByCategory", method = RequestMethod.POST)
+	public List<Question> searchByCategory(@RequestParam("categoryId") long categoryId,
+			@RequestParam("limit") int limit) {
+		return postService.searchByCategory(categoryId, limit);
+	}
+
+	// @RequestMapping(value = "/getQuestionsForCategories", method =
+	// RequestMethod.POST)
+	// public List<Question> getQuestionsForCategories( @RequestBody List<Long>
+	// categoriesIds) {
+	// return postService.getQuestionForCategories(categoriesIds);
+	// }
+	//
+	// @RequestMapping(value = "/getQuestionsForCategoriesToSearch", method =
+	// RequestMethod.POST)
+	// public List<Question> getQuestionsForCategoriesToSearch( @RequestBody
+	// List<Long> categoriesIds) {
+	// return postService.getQuestionsForCategoriesToSearch(categoriesIds);
+	// }
+
 }
