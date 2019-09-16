@@ -79,6 +79,12 @@
 			<version>5.11.2.Final</version>
 		</dependency>
 
+		<!-- Infinispan integration: -->
+		<dependency>
+			<groupId>org.infinispan</groupId>
+			<artifactId>infinispan-directory-provider</artifactId>
+			<version>9.2.2.Final</version>
+		</dependency>
 
 	</dependencies>
 
