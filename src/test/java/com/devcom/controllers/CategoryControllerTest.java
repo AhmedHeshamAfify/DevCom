@@ -36,15 +36,6 @@ public class CategoryControllerTest {
 	}
 	
 	@Test
-	public void getAllCategoriesWithQuestionsNo() {
-		Map<String,Integer> categoriesAndQuestionsNo = new HashMap<String,Integer>();
-		
-		categoriesAndQuestionsNo.put("Kalam",1);
-		when(categoryService.getAllCategoriesWithQuestionsNo()).thenReturn(categoriesAndQuestionsNo);
-		Assert.assertEquals(categoryController.getAllCategoriesWithQuestionsNo(),categoriesAndQuestionsNo);
-	}
-	
-	@Test
 	public void getAllCategories() {
 		List<Category> categories = new ArrayList<Category>();
 		categories.add(category);

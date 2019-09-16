@@ -126,7 +126,7 @@ public class PostServiceTests {
 	public void postAnswer() {
 		Answer answer = mock(Answer.class);
 		when(postRepo.save(answer)).thenReturn(answer);
-		Assert.assertEquals(postService.postAnswer(answer), "success");
+		Assert.assertEquals(postService.postAnswer(answer), answer);
 	}
 	
 	@Test
