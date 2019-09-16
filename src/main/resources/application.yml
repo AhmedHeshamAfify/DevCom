@@ -1,8 +1,9 @@
 # config context path to "/" by setting an empty string
 server:
-  contextPath:
-
-# JACKSON
+  servlet:
+    context-path:
+    
+    # JACKSON
 spring:
   jackson:
     serialization:
