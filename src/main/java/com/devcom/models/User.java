@@ -20,6 +20,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 public class User implements UserDetails {
 
+	public  User(long id, String name, String email, int score) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.score = score;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")

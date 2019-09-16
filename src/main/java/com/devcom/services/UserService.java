@@ -53,7 +53,8 @@ public class UserService {
 	 */
 	public User getUserById(long id) {
 		try {
-			return userRepo.findById(id);
+			//return userRepo.findById(id);
+			return userRepo.findUserById(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

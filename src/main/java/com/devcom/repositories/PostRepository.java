@@ -34,5 +34,5 @@ public interface PostRepository extends CrudRepository<Post, Long>, JpaRepositor
 	@Query("from Answer where user.id =:userId order by id desc")
 	List<Answer> getUserAnswers(@Param("userId") long userId);
 	
-
+	
 }

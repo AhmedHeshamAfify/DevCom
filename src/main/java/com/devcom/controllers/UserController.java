@@ -98,4 +98,14 @@ public class UserController {
 		}
 		return response;
 	}
+	@RequestMapping(value = "/getUserById",method = RequestMethod.POST)
+	public User getUserById(@RequestParam("userId") long userId) {
+		try {
+			return userService.getUserById(userId);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

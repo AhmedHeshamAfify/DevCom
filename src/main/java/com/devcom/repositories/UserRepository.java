@@ -14,5 +14,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	User findById(long id);
 	User save(User user);
 	
-
+	@Query("SELECT new com.devcom.models.User(u.id, u.name, u.email, u.score) FROM User u WHERE u.id =:userId")
+	User findUserById(long userId);
 }
