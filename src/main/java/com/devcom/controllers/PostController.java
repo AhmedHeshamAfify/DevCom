@@ -144,21 +144,18 @@ public class PostController {
 	}
 
 	@RequestMapping(value = "/postAnswer", method = RequestMethod.POST)
-	public String postAnswer(@RequestHeader(name = "Authorization") String token, @RequestBody Answer a) {
-		String result = "";
+	public Post postAnswer(@RequestHeader(name = "Authorization") String token, @RequestBody Answer a) {
+		Post result = null;
 		try {
 			String email = jwtTokenUtil.getEmailFromToken(token);
 			User user = userService.getUserByEmail(email);
 			if (user != null){
 				a.setUser(user);
 				result = postService.postAnswer(a);
-			}else{
-				result = "please login";
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = e.getMessage();
 		}
 		return result;
 	}
@@ -192,7 +189,7 @@ public class PostController {
 //	}
 	
 	@RequestMapping(value = "/searchByKeyword", method = RequestMethod.POST)
-	public List<Question> searchByKeyword(@RequestBody String keyword) {
+	public List<Question> searchByKeyword(@RequestParam("keyWord") String keyword) {
 		return postService.searchByKeyword(keyword);
 	}
 	

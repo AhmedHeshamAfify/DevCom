@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageImpl;
 
 import com.devcom.jwt.JwtTokenUtil;
 import com.devcom.models.Answer;
+import com.devcom.models.Post;
 import com.devcom.models.Question;
 import com.devcom.models.User;
 import com.devcom.services.PostService;
@@ -158,11 +159,12 @@ public class PostControllerTests {
 		User user = mock(User.class);
 		Answer answer = mock(Answer.class);
 
+		Post post = mock(Post.class);
 		when(userService.getUserByEmail(email)).thenReturn(user);
-		when(postService.postAnswer(answer)).thenReturn("success");
-		Assert.assertEquals(postController.postAnswer(token, answer), "success");
+		when(postService.postAnswer(answer)).thenReturn(post);
+		Assert.assertEquals(postController.postAnswer(token, answer),post);
 		when(userService.getUserByEmail(email)).thenReturn(null);
-		Assert.assertEquals(postController.postAnswer(token, answer), "please login");
+		Assert.assertEquals(postController.postAnswer(token, answer),null);
 	}
 
 	@Test
