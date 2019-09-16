@@ -17,7 +17,7 @@ import org.hibernate.search.annotations.Indexed;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Indexed
+//@Indexed
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)  
 public abstract class Post {
