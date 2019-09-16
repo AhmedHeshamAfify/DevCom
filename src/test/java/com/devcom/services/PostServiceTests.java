@@ -16,6 +16,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.devcom.models.Answer;
 import com.devcom.models.Post;
@@ -139,5 +141,21 @@ public class PostServiceTests {
 		questions.add(q3);
 		when(fullTextSearch.searchByKeyword(keyword)).thenReturn(questions);
 		Assert.assertEquals(postService.searchByKeyword(keyword), questions);
+	}
+	
+	@Test
+	public void searchByCategory(){
+		long categoryId = 1;
+		int limit =10;
+		Question q1 = mock(Question.class);
+		Question q2 = mock(Question.class);
+		Question q3 = mock(Question.class);
+		List<Question> questions = new ArrayList<>();
+		questions.add(q1);
+		questions.add(q2);
+		questions.add(q3);
+		Pageable pageable =PageRequest.of(0, limit);
+		when(questionRepository.getQuestionsForCategory(categoryId,pageable)).thenReturn(questions);
+		Assert.assertEquals(postService.searchByCategory(categoryId,limit), questions);
 	}
 }
